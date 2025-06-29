@@ -12,22 +12,22 @@ function loadComponent(selector, file, callback) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  loadComponent("#modal-container", "/components/modal-datlich.html");
-  loadComponent("#form-datlich", "/components/modal-datlich.html");
+  loadComponent("#modal-container", "components/modal-datlich.html");
+  loadComponent("#form-datlich", "components/modal-datlich.html");
 
-  loadComponent("#header", "/components/header.html", () => {
+  loadComponent("#header", "components/header.html", () => {
     const menulink = document.querySelectorAll("a[data-page]");
     menulink.forEach((link) =>
       link.addEventListener("click", (e) => {
         e.preventDefault();
         const page = link.getAttribute("data-page");
-        const pagePath = `/pages/${page}.html`;
+        const pagePath = `pages/${page}.html`;
 
         if (page === "home") {
           sitemap = sitemapDefault;
           loadComponent("#main", pagePath, initManualSlider);
-          loadComponent("#camnghi", "/components/item-column.html", renderCamnghi);
-          loadComponent("#camnhan", "/components/item-camnhankhachhang.html", renderCamnhan);
+          loadComponent("#camnghi", "components/item-column.html", renderCamnghi);
+          loadComponent("#camnhan", "components/item-camnhankhachhang.html", renderCamnhan);
         } else if (page === "lien-he") {
           sitemap = sitemapDefault + " / " + "Liên hệ";
           loadComponent("#main", pagePath);
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
             //  Sau khi gioi-thieu.html được tải xong mới chèn form
             loadComponent(
               "#sidebar-placeholder",
-              "/components/dangkyform.html"
+              "components/dangkyform.html"
             );
           });
         } else if (page === "gioi-thieu") {
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
             //  Sau khi gioi-thieu.html được tải xong mới chèn form
             loadComponent(
               "#sidebar-placeholder",
-              "/components/dangkyform.html"
+              "components/dangkyform.html"
             );
           });
         } else if (page === "dich-vu") {
@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
             //  Sau khi dich vu.html được tải xong mới chèn form
             loadComponent(
               "#sidebar-placeholder",
-              "/components/dangkyform.html"
+              "components/dangkyform.html"
             );
           });
         }
@@ -64,13 +64,13 @@ document.addEventListener("DOMContentLoaded", () => {
     attachModalEvents();
   });
 
-  loadComponent("#footer", "/components/footer.html");
+  loadComponent("#footer", "components/footer.html");
 
-  const homePath = "/pages/home.html";
+  const homePath = "pages/home.html";
   sitemap = sitemapDefault;
   loadComponent("#main", homePath, initManualSlider);
-  loadComponent("#camnghi", "/components/item-column.html", renderCamnghi);
-  loadComponent("#camnhan", "/components/item-camnhankhachhang.html", renderCamnhan);
+  loadComponent("#camnghi", "components/item-column.html", renderCamnghi);
+  loadComponent("#camnhan", "components/item-camnhankhachhang.html", renderCamnhan);
 
   
 });
