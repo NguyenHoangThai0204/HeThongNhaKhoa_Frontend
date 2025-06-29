@@ -1,0 +1,120 @@
+.top-info {
+  background-color: #f5f5f5;
+  color: #1a4d8f;
+  font-size: 14px;
+  padding: 5px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Căn giữa theo chiều dọc */
+  border-bottom: 2px solid #1a4d8f;
+  height: 40px; /* Có thể chỉnh tùy ý chiều cao */
+}
+
+.left-info {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.right-info {
+  width: 50%;
+}
+
+.right-info marquee {
+  font-weight: bold;
+}
+
+/* ==================================================     HEADER 
+======================================================= ========================== */
+.container-header {
+  background-image: linear-gradient(to right, #06112f, #225491, #06112f);
+  display: flex;
+  justify-content: flex-end; /* Menu nằm bên phải */
+  align-items: center;
+  height: 92px;
+  padding-right: 130px;
+}
+
+.menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.menu > li{
+  list-style: none;
+  position: relative;
+}
+
+.menu > li > a {
+  display: block;
+  list-style: none;
+  padding: 15px 10px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.menu > li > a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+}
+
+.dat-lich {
+  background-color: rgb(189, 8, 8);
+  height: 40px;
+  border-radius: 20px;
+  color: white !important;
+  font-weight: bold;
+  font-size: 14px;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: background-color 0.3s ease;
+  text-align: center !important;
+  min-width: 140px;
+  padding: 0 20px !important;
+  line-height: 1 !important;
+  white-space: nowrap;
+}
+
+.dat-lich:hover {
+  background-color: rgb(150, 0, 0); /* hiệu ứng hover */
+}
+
+/* Dropdown */
+.submenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  list-style: none;
+  background: #fff;
+  min-width: 200px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease;
+  z-index: 1000;
+}
+
+.has-submenu:hover .submenu {
+  opacity: 1;
+  visibility: visible;
+}
+
+.submenu li a {
+  display: block;
+  padding: 10px 15px;
+  color: #333;
+  text-decoration: none;
+}
+
+.submenu li a:hover {
+  background-color: #f0f0f0;
+}

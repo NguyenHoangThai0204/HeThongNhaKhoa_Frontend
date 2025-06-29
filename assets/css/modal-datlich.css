@@ -1,0 +1,17 @@
+#modal-datlich{
+    height: 100px;
+    display: none; 
+    width: 60%;
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+#close-modal{
+    cursor: pointer;
+    background-color: aliceblue;
+}
+.modal-content{
+    display: flex;
+    width: 100%;
+}
