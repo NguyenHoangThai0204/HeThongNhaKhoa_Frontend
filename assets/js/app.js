@@ -6,7 +6,7 @@ function loadComponent(selector, file, callback) {
     .then((response) => response.text())
     .then((html) => {
       document.querySelector(selector).innerHTML = html;
-      if (callback) callback(); // Gọi callback nếu có
+      if (callback) callback(); 
     })
     .catch((error) => console.error("Lỗi load component:", error));
 }
@@ -51,10 +51,9 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
         const page = link.getAttribute("data-page");
         
-        // ✅ Cập nhật đường dẫn URL mà không reload
         history.pushState({ page }, "", `#${page}`);
 
-        handlePageLoad(page); // ✅ Tải nội dung tương ứng
+        handlePageLoad(page); 
       })
     );
     attachModalEvents();
@@ -62,12 +61,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   loadComponent("#footer", "components/footer.html");
 
-  // ✅ Load trang tương ứng theo URL khi vừa mở trang
   const currentPage = window.location.hash.replace("#", "") || "home";
   handlePageLoad(currentPage);
 });
 
-// ✅ Nếu người dùng bấm nút Back/Forward
 window.addEventListener("popstate", () => {
   const currentPage = window.location.hash.replace("#", "") || "home";
   handlePageLoad(currentPage);
