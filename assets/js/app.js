@@ -11,54 +11,50 @@ function loadComponent(selector, file, callback) {
     .catch((error) => console.error("Lỗi load component:", error));
 }
 
+function handlePageLoad(page) {
+  const pagePath = `pages/${page}.html`;
+
+  if (page === "home") {
+    sitemap = sitemapDefault;
+    loadComponent("#main", pagePath, initManualSlider);
+    loadComponent("#camnghi", "components/item-column.html", renderCamnghi);
+    loadComponent("#camnhan", "components/item-camnhankhachhang.html", renderCamnhan);
+  } else if (page === "lien-he") {
+    sitemap = sitemapDefault + " / " + "Liên hệ";
+    loadComponent("#main", pagePath);
+  } else if (page === "tin-tuc") {
+    sitemap = sitemapDefault + " / " + "Tin tức";
+    loadComponent("#main", pagePath, () => {
+      loadComponent("#sidebar-placeholder", "components/dangkyform.html");
+    });
+  } else if (page === "gioi-thieu") {
+    sitemap = sitemapDefault + " / " + "Giới thiệu";
+    loadComponent("#main", pagePath, () => {
+      loadComponent("#sidebar-placeholder", "components/dangkyform.html");
+    });
+  } else if (page === "dich-vu") {
+    sitemap = sitemapDefault + " / " + "Dịch vụ";
+    loadComponent("#main", pagePath, () => {
+      loadComponent("#sidebar-placeholder", "components/dangkyform.html");
+    });
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   loadComponent("#modal-container", "components/modal-datlich.html");
   loadComponent("#form-datlich", "components/modal-datlich.html");
 
   loadComponent("#header", "components/header.html", () => {
-    const menulink = document.querySelectorAll("a[data-page]");
-    menulink.forEach((link) =>
+    const menulinks = document.querySelectorAll("a[data-page]");
+    menulinks.forEach((link) =>
       link.addEventListener("click", (e) => {
         e.preventDefault();
         const page = link.getAttribute("data-page");
-        const pagePath = `pages/${page}.html`;
+        
+        // ✅ Cập nhật đường dẫn URL mà không reload
+        history.pushState({ page }, "", `#${page}`);
 
-        if (page === "home") {
-          sitemap = sitemapDefault;
-          loadComponent("#main", pagePath, initManualSlider);
-          loadComponent("#camnghi", "components/item-column.html", renderCamnghi);
-          loadComponent("#camnhan", "components/item-camnhankhachhang.html", renderCamnhan);
-        } else if (page === "lien-he") {
-          sitemap = sitemapDefault + " / " + "Liên hệ";
-          loadComponent("#main", pagePath);
-        } else if (page === "tin-tuc") {
-          sitemap = sitemapDefault + " / " + "Tin tức";
-          loadComponent("#main", pagePath, () => {
-            //  Sau khi gioi-thieu.html được tải xong mới chèn form
-            loadComponent(
-              "#sidebar-placeholder",
-              "components/dangkyform.html"
-            );
-          });
-        } else if (page === "gioi-thieu") {
-          sitemap = sitemapDefault + " / " + "Giới thiệu";
-          loadComponent("#main", pagePath, () => {
-            //  Sau khi gioi-thieu.html được tải xong mới chèn form
-            loadComponent(
-              "#sidebar-placeholder",
-              "components/dangkyform.html"
-            );
-          });
-        } else if (page === "dich-vu") {
-          sitemap = sitemapDefault + " / " + "Dịch vụ";
-          loadComponent("#main", pagePath, () => {
-            //  Sau khi dich vu.html được tải xong mới chèn form
-            loadComponent(
-              "#sidebar-placeholder",
-              "components/dangkyform.html"
-            );
-          });
-        }
+        handlePageLoad(page); // ✅ Tải nội dung tương ứng
       })
     );
     attachModalEvents();
@@ -66,14 +62,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   loadComponent("#footer", "components/footer.html");
 
-  const homePath = "pages/home.html";
-  sitemap = sitemapDefault;
-  loadComponent("#main", homePath, initManualSlider);
-  loadComponent("#camnghi", "components/item-column.html", renderCamnghi);
-  loadComponent("#camnhan", "components/item-camnhankhachhang.html", renderCamnhan);
-
-  
+  // ✅ Load trang tương ứng theo URL khi vừa mở trang
+  const currentPage = window.location.hash.replace("#", "") || "home";
+  handlePageLoad(currentPage);
 });
+
+// ✅ Nếu người dùng bấm nút Back/Forward
+window.addEventListener("popstate", () => {
+  const currentPage = window.location.hash.replace("#", "") || "home";
+  handlePageLoad(currentPage);
+});
+
 
 /* ==================================================     slide chuyển động 
 ======================================================= ========================== */
